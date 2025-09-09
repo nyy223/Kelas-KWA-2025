@@ -1,7 +1,7 @@
 # Login Jim
 
-## Deskripsi 
-Challenge **“Login Jim”** menguji pemahaman mengenai **SQL Injection** pada proses autentikasi. Tujuannya adalah mengeksploitasi query SQL yang tidak aman agar bisa login sebagai **Jim** tanpa mengetahui password aslinya.
+## Objective 
+Log in with Jim's user account.
 
 ## Langkah Eksploitasi
 1. Masuk ke halaman login, terdapat field untuk mengisi bagian email dan password.
@@ -14,4 +14,5 @@ Di review salah satu produk, kita bisa mendapati bahwa email Jim adalah `jim@jui
 4. Payload `--` akan mengomentari sisa query. Pengecekan password diabaikan sehingga database hanya memvalidasi email dan langsung memberi akses ke akun tersebut.
 5. Kita pun berhasil masuk ke akun Jim
 <img width="1440" height="900" alt="Screenshot 2025-09-08 at 21 45 57" src="https://github.com/user-attachments/assets/34bf0b4b-1be1-46e7-b379-a709041a4a1e" />
+
 

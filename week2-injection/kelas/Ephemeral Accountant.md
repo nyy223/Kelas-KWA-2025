@@ -14,6 +14,7 @@ Log in with the (non-existing) accountant acc0unt4nt@juice-sh.op without ever re
   "password": "test1234"
 }
 ```
+Payload tersebut berfungsi untuk menyuntikkan row user palsu bernama acc0unt4nt@juice-sh.op melalui UNION SELECT, sehingga aplikasi percaya akun tersebut ada dan mengeluarkan JWT token dengan role accounting tanpa benar-benar membuat user di database.
 
 3. Setelah request dikirim, server merespons dengan JWT token valid. Ini membuktikan bahwa aplikasi menerima user palsu sebagai akun sah.
 <img width="1440" height="900" alt="Screenshot 2025-09-09 at 22 12 59" src="https://github.com/user-attachments/assets/4aefed26-52ad-4491-8f1d-56c077549ed4" />
@@ -34,3 +35,4 @@ Log in with the (non-existing) accountant acc0unt4nt@juice-sh.op without ever re
   - Awalnya cukup tricky karena harus memastikan jumlah dan urutan kolom di UNION SELECT sesuai dengan struktur tabel Users. Jika tidak sesuai, hasilnya gagal dengan error SQL.
   - Dengan pendekatan ini, user ephemeral hanya “ada” selama query berjalan — tidak disimpan permanen di database.
   - Dari sisi keamanan, kasus ini menunjukkan betapa pentingnya prepared statements dan validasi server-side sebelum mengeluarkan token authentication.
+

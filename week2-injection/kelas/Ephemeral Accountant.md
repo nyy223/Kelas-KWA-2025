@@ -26,3 +26,11 @@ Log in with the (non-existing) accountant acc0unt4nt@juice-sh.op without ever re
 <img width="1440" height="900" alt="Screenshot 2025-09-09 at 23 10 49" src="https://github.com/user-attachments/assets/0cc65957-35e3-40bb-912c-f51246dc74d3" />
 
 5. Setelah token diganti, refresh halaman → user berhasil login sebagai accountant.
+
+## Catatan
+- Hasil: Berhasil.
+- Alasan: Payload SQL Injection berhasil membentuk record user palsu yang memenuhi struktur tabel Users. Aplikasi tidak melakukan validasi ekstra untuk mengecek apakah akun benar-benar ada di database, sehingga JWT token bisa dikeluarkan.
+- Refleksi:
+  - Awalnya cukup tricky karena harus memastikan jumlah dan urutan kolom di UNION SELECT sesuai dengan struktur tabel Users. Jika tidak sesuai, hasilnya gagal dengan error SQL.
+  - Dengan pendekatan ini, user ephemeral hanya “ada” selama query berjalan — tidak disimpan permanen di database.
+  - Dari sisi keamanan, kasus ini menunjukkan betapa pentingnya prepared statements dan validasi server-side sebelum mengeluarkan token authentication.

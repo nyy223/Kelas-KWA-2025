@@ -17,3 +17,10 @@ Order the Christmas special offer of 2014.
 6. Produk christmas offer akan ditambahkan ke keranjang
 <img width="1440" height="900" alt="Screenshot 2025-09-09 at 22 05 48" src="https://github.com/user-attachments/assets/4f3743a6-7b9c-40a9-863b-f58a20c7709e" />
 <img width="1440" height="900" alt="Screenshot 2025-09-09 at 22 06 13" src="https://github.com/user-attachments/assets/d2d3362a-f604-464a-944a-2aba11adc863" />
+
+## Catatan
+- Hasil: Berhasil.
+- Alasan: Payload SQL Injection dengan kondisi deletedAt IS NOT NULL berhasil menampilkan produk yang sebelumnya disembunyikan oleh aplikasi. Dengan memanfaatkan ProductId hasil query, item tersebut bisa ditambahkan ke shopping cart melalui manipulasi request API.
+- Refleksi:
+  - Awalnya sempat gagal karena payload UNION SELECT tanpa filter tidak menampilkan produk spesial. Setelah memahami bahwa Juice Shop menggunakan mekanisme soft delete dengan kolom deletedAt, payload bisa diarahkan dengan tepat.
+  - Langkah selanjutnya yang cukup tricky adalah menemukan ProductId dari hasil query dan menggunakannya di request POST /api/BasketItems. Dari sisi keamanan, kelemahan ini menunjukkan risiko besar dari penggunaan soft delete tanpa kontrol akses tambahan, serta pentingnya penggunaan prepared statements dan validasi input untuk mencegah SQL Injection.
